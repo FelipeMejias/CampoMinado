@@ -1,5 +1,5 @@
-//const linhasQtd=prompt('Com quantas linhas quer jogar? cada linha possuirá 10 colunas')
-//const bombasQtd=prompt('Com quantas bombas quer jogar?')
+const linhasQtd=prompt('Com quantas linhas quer jogar? cada linha possuirá 10 colunas')
+const bombasQtd=prompt('Com quantas bombas quer jogar?')
 const lista=[]
 let objeto={}
 const listaBombas=[]
@@ -8,8 +8,8 @@ printarCasas()
 let contador=0
 
 function adicionarBombas(){
-    for(let k=0; k<81; k++){
-        if(k<20){listaBombas.push('<img src="bomba.jpg">')}
+    for(let k=0; k<9*linhasQtd; k++){
+        if(k<bombasQtd){listaBombas.push('<img src="bomba.jpg">')}
         else{listaBombas.push(0)}
     }
     listaBombas.sort(comparador)
@@ -22,7 +22,7 @@ function comparador() {
 function printarCasas(){
     const container=document.querySelector('.container')
     let indice=0
-    for(let i=1; i<10; i++){
+    for(let i=1; i<=linhasQtd; i++){
         container.innerHTML+=`
             <div class="linha linha${i}"></div>
         `
@@ -61,10 +61,10 @@ function virarCasa(lxx){
 
 
 
-
+virarTodas()
 
 function virarTodas(){
-    for(let i=1; i<10; i++){
+    for(let i=1; i<=linhasQtd; i++){
         for(let j=1; j<10; j++){
             virarCasa(`l${i}-${j}`)
         }
@@ -74,9 +74,9 @@ function virarTodas(){
 
 
 function definirVerso(a,b){
-    for(let i=1; i<10; i++){
+    for(let i=1; i<=linhasQtd; i++){
         for(let j=1; j<10; j++){
-            for(let k=0; k<81; k++){
+            for(let k=0; k<9*linhasQtd; k++){
                 objetoVez=lista[k]
                 if(objetoVez.linha==i+a && objetoVez.coluna==j+b && objetoVez.verso=='<img src="bomba.jpg">'){
                     mudarVerso(i,j)
@@ -99,7 +99,7 @@ definirVerso(1,1)
 
 
 function mudarVerso(x,y){
-    for(let k=0; k<81; k++){
+    for(let k=0; k<9*linhasQtd; k++){
         objetoVez=lista[k]
         if(objetoVez.linha==x && objetoVez.coluna==y){
             if(objetoVez.verso!='<img src="bomba.jpg">'){
@@ -123,9 +123,10 @@ function definirCor(numero,casa){
         casa.classList.add('amarelo')
     }
     if(numero==4){
-        casa.classList.add('laranja')
+        casa.classList.add('vermelho')
     }
     if(numero==5){
-        casa.classList.add('laranja')
+        casa.classList.add('rosa')
     }
+    
 }
