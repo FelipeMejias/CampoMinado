@@ -1,13 +1,14 @@
-const linhasQtd=prompt('Com quantas linhas quer jogar? cada linha possuirá 10 colunas')
-const bombasQtd=prompt('Com quantas bombas quer jogar?')
+//const quantidadeLinhas=prompt('Com quantas linhas quer jogar? cada linha possuirá 9 colunas')
+//const quantidadeBombas=prompt('Com quantas bombas quer jogar?')
 const lista=[]
 let objeto={}
 const listaBombas=[]
-adicionarBombas()
-printarCasas()
+const quantidadeLinhas=9
+adicionarBombas(9,17)
+printarCasas(9)
 let contador=0
 
-function adicionarBombas(){
+function adicionarBombas(linhasQtd,bombasQtd){
     for(let k=0; k<9*linhasQtd; k++){
         if(k<bombasQtd){listaBombas.push('<img src="bomba.jpg">')}
         else{listaBombas.push(0)}
@@ -19,7 +20,7 @@ function comparador() {
 }
 
 
-function printarCasas(){
+function printarCasas(linhasQtd){
     const container=document.querySelector('.container')
     let indice=0
     for(let i=1; i<=linhasQtd; i++){
@@ -57,13 +58,14 @@ function printarCasas(){
 function virarCasa(lxx){
     const casaSelecionada=document.querySelector(`.${lxx}`)
     casaSelecionada.classList.add('virado')
+    checarSeEhBomba(`.${lxx}`)
 }
 
 
 
-virarTodas()
 
-function virarTodas(){
+
+function virarTodas(linhasQtd){
     for(let i=1; i<=linhasQtd; i++){
         for(let j=1; j<10; j++){
             virarCasa(`l${i}-${j}`)
@@ -73,13 +75,13 @@ function virarTodas(){
 
 
 
-function definirVerso(a,b){
+function definirVerso(a,b,linhasQtd){
     for(let i=1; i<=linhasQtd; i++){
         for(let j=1; j<10; j++){
             for(let k=0; k<9*linhasQtd; k++){
                 objetoVez=lista[k]
                 if(objetoVez.linha==i+a && objetoVez.coluna==j+b && objetoVez.verso=='<img src="bomba.jpg">'){
-                    mudarVerso(i,j)
+                    mudarVerso(i,j,linhasQtd)
 
                 }
             }
@@ -88,17 +90,17 @@ function definirVerso(a,b){
     }
 }
 
-definirVerso(-1,-1)
-definirVerso(-1,0)
-definirVerso(-1,1)
-definirVerso(0,-1)
-definirVerso(0,1)
-definirVerso(1,-1)
-definirVerso(1,0)
-definirVerso(1,1)
+definirVerso(-1,-1,quantidadeLinhas)
+definirVerso(-1,0,quantidadeLinhas)
+definirVerso(-1,1,quantidadeLinhas)
+definirVerso(0,-1,quantidadeLinhas)
+definirVerso(0,1,quantidadeLinhas)
+definirVerso(1,-1,quantidadeLinhas)
+definirVerso(1,0,quantidadeLinhas)
+definirVerso(1,1,quantidadeLinhas)
 
 
-function mudarVerso(x,y){
+function mudarVerso(x,y,linhasQtd){
     for(let k=0; k<9*linhasQtd; k++){
         objetoVez=lista[k]
         if(objetoVez.linha==x && objetoVez.coluna==y){
@@ -130,3 +132,4 @@ function definirCor(numero,casa){
     }
     
 }
+
